@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>The Psychic Game</h1>
+
+        <h3> Guess what letter I'm thinking of...</h3>
+
+        <p id="wins-text">Wins: </p>
+        <p id="losses-text">Loss: </p>
+        <p id="guesses-left-text">Guesses Left: </p>
+        <p id="your-guesses">Your guesses so far: </p>
+    </div>
+
+    <script type="text/javascript">
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var guesses = 0;
+        var userGuesses = [];
+        var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+        var winsText = document.getElementById("wins-text");
+        var lossesText = document.getElementById("losses-text");
+        var guessesRemaining = document.getElementById("guesses-left-text");
+        var yourGuesses = document.getElementById("your-guesses");
+
+        document.onkeyup = function (event) {
+            if (event.keyCode > 64 && event.keyCode < 90) {
+
+
+                var userGuess = event.key;
+                userGuesses.push(userGuess);
+                console.log(userGuesses)
+
+
+
+                if (userGuess === computerGuess) {
+                    wins++;
+                    guessesLeft = 9;
+                    userGuesses = [];
+                    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+                } else {
+                    guessesLeft--;
+                }
+                if (guessesLeft === 0) {
+                    losses++;
+                    guessesLeft = 9;
+                    userGuesses = [];
+                    computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+
+                }
+            }
+            winsText.textContent = "Wins: " + wins;
+            lossesText.textContent = "Losses: " + losses;
+            guessesRemaining.textContent = "Guesses Left: " + guessesLeft;
+            yourGuesses.textContent = " Your guesses so far: " + userGuesses.join(", ");
+        }
+    </script>
+
+</body>
+
+</html>
